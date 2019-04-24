@@ -7,6 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 // TODO: Put exception in source
 class DecodeException extends Exception { }
 class LoginException extends Exception { }
+class TokenInvalidException extends Exception { }
 
 /* ***********************************************
  * User API Group
@@ -54,6 +55,14 @@ $app->group('/login', function () use ($app)
             throw new LoginException("Could not retrieve Login Parameters");
          }
 
+         $client = new Google_Client(['client_id' => Config::$gauth_secret]);  // Specify the CLIENT_ID of the app that accesses the backend
+         $payload = $client->verifyIdToken($cred["token"]);
+         
+         if ($payload) 
+         {
+            $userid = $payload['sub'];
+         } else {
+         }
       } 
       catch (Exception $e) 
       {
@@ -63,8 +72,8 @@ $app->group('/login', function () use ($app)
       }
 
       return $response
-         ->withStatus(200)
-         ->withJson($cred);
+         ->withJson($payload)
+         ->withStatus(200);
    });
 });
 
