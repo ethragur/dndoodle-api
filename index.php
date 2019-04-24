@@ -24,14 +24,14 @@ $container = $app->getContainer();
 /* ***********************************************
  * Database Connection
  * ***********************************************/
-#$container['db'] = function ($c) {
-#   $pdo = new PDO("mysql:host=" . Config::$mysql_host . ";dbname=" . Config::$mysql_db .";charset=UTF8", Config::$mysql_user, Config::$mysql_pwd);
-#   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-#   $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-#   return $pdo;
-#
-#};
-#
+$container['db'] = function ($c) {
+   $pdo = new PDO("mysql:host=" . Config::$mysql_host . ";dbname=" . Config::$mysql_db .";charset=UTF8", Config::$mysql_user, Config::$mysql_pwd);
+   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+   return $pdo;
+
+};
+
 
 /* ***********************************************
  * Cors Settings 
