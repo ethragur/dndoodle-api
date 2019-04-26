@@ -14,7 +14,8 @@ CREATE TABLE dnd_user
     user_name   VARCHAR(32) NOT NULL,
     user_gid    VARCHAR(64),
     user_pass   BINARY(60)
-    user_email  VARCHAR(128)
+    user_email  VARCHAR(128),
+    UNIQUE KEY  unique_user(user_name)
 );
 
 CREATE TABLE dnd_char
@@ -26,7 +27,7 @@ CREATE TABLE dnd_char
     FOREIGN KEY (user_id) REFERENCES dnd_user(user_id)
     
 
-    attr_STR    TINYINT UNSIGNED NOT NULL,
+/*    attr_STR    TINYINT UNSIGNED NOT NULL,
     attr_DEX    TINYINT UNSIGNED NOT NULL,
     attr_CON    TINYINT UNSIGNED NOT NULL,
     attr_INT    TINYINT UNSIGNED NOT NULL,
@@ -50,7 +51,7 @@ CREATE TABLE dnd_char
     skill_RELI  ENUM('PROF', 'EXPE', 'HALF', 'NONE') NOT NULL,
     skill_SLHA  ENUM('PROF', 'EXPE', 'HALF', 'NONE') NOT NULL,
     skill_STEA  ENUM('PROF', 'EXPE', 'HALF', 'NONE') NOT NULL,
-    skill_SURV  ENUM('PROF', 'EXPE', 'HALF', 'NONE') NOT NULL,
+    skill_SURV  ENUM('PROF', 'EXPE', 'HALF', 'NONE') NOT NULL, */
 )
 
 CREATE TABLE dnd_char_saves
