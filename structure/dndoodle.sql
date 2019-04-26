@@ -10,7 +10,7 @@ USE dndoodle;
 
 CREATE TABLE dnd_user
 (
-    user_id     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id     VARCHAR(36) PRIMARY KEY,
     user_name   VARCHAR(32) NOT NULL,
     user_gid    VARCHAR(64),
     user_pass   BINARY(60),
@@ -20,12 +20,13 @@ CREATE TABLE dnd_user
 
 CREATE TABLE dnd_char
 (
-    char_id     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    char_id     VARCHAR(36) PRIMARY KEY,
     char_name   VARCHAR(64) NOT NULL,
     char_data   TEXT DEFAULT "",
     last_edit   INT UNSIGNED DEFAULT 0,
-    user_id     INT UNSIGNED,
-    FOREIGN KEY (user_id) REFERENCES dnd_user(user_id)
+    user_id     VARCHAR(36),
+    FOREIGN KEY (user_id) REFERENCES dnd_user(user_id),
+    CONSTRAINT char_uniq UNIQUE (user_id, char_name)
     
 
 /*    attr_STR    TINYINT UNSIGNED NOT NULL,

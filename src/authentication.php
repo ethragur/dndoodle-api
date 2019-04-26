@@ -4,7 +4,7 @@ use \Firebase\JWT\JWT;
 
 function createUserNormal($username, $password, $db)
 {
-    $stmt = $db->prepare("INSERT INTO dnd_user(user_name, user_pass) VALUES(:username, :password)");
+    $stmt = $db->prepare("INSERT INTO dnd_user(user_id, user_name, user_pass) VALUES(UUID(), :username, :password)");
 
     if($stmt->execute(["username" => $username, "password" => password_hash($password, PASSWORD_DEFAULT) ]) )
     {
@@ -18,7 +18,7 @@ function createUserNormal($username, $password, $db)
 
 function createUserGoogle($username, $gauthID, $db)
 {
-    $stmt = $db->prepare("INSERT INTO dnd_user(user_name, user_gid) VALUES(:username, :gid)");
+    $stmt = $db->prepare("INSERT INTO dnd_user(user_id, user_name, user_gid) VALUES(UUID(), :username, :gid)");
 
     if($stmt->execute(["username" => $username, "gid" => $gauthID ]) )
     {
