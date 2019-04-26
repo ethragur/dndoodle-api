@@ -5,7 +5,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 
 /* ***********************************************
- * User API Group
  * ***********************************************/
 $app->group('/login', function () use ($app)
 {

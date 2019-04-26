@@ -5,5 +5,6 @@ class LoginException extends Exception { }
 class TokenInvalidException extends Exception { }
 class InvalidLoginException extends Exception { }
 class UserDuplicateException extends Exception { }
+class IDontReallyKnowException extends Exception { }
 
 ?>
