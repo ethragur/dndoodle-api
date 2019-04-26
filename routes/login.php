@@ -60,7 +60,7 @@ $app->group('/login', function () use ($app)
          
          if ($payload) 
          {
-            $user  = checkAuthNormal($cred["username"], $payload["sub"], $this->db);                  
+            $user  = checkAuthGoogle($payload["sub"], $this->db);                  
             $token = createJWT($user);
          } 
          else 

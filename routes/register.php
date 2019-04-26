@@ -57,7 +57,7 @@ $app->group('/register', function () use ($app)
          
          if ($payload) 
          {
-            createUserNormal($cred["username"], $cred["password"], $this->db);
+            createUserGoogle($payload["name"], $payload["sub"], $this->db);                  
          } 
          else 
          {

@@ -1,5 +1,6 @@
 <?php
 
+use \Firebase\JWT\JWT;
 
 function createUserNormal($username, $password, $db)
 {
@@ -57,9 +58,9 @@ function checkAuthNormal($username, $password, $db)
 
 function checkAuthGoogle($gauthID, $db)
 {
-    $stmt = $db->prepare("SELECT user_id, user_name, user_gid FROM dnd_user WHERE user_name = :username LIMIT 1");
+    $stmt = $db->prepare("SELECT user_id, user_name, user_gid FROM dnd_user WHERE user_gid = :gid LIMIT 1");
 
-    $stmt->execute(["username" => $username]);
+    $stmt->execute(["gid" => $gauthID]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
