@@ -1,6 +1,9 @@
 {
     "require": {
         "slim/slim": "^3.12",
+        "firebase/php-jwt": "^5.0",
+        "tuupola/slim-jwt-auth": "^3.0",
+        "projek-xyz/slim-monolog": "^0.1.6",
         "google/apiclient": "^2.2"
     }
 }
