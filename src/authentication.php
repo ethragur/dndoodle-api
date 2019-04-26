@@ -80,5 +80,23 @@ function checkAuthGoogle($gauthID, $db)
     }
 }
 
+function createJWT($user)
+{
+      $now = new DateTime();
+      $future = new DateTime("now +1 week");
+
+      $payload =
+	 [
+	    "iat"       => $now->getTimeStamp(),
+	    "exp"       => $future->getTimeStamp(),
+	    "una"       => $user["user_name"],
+	    "uid"       => $user["user_id"]
+	 ];
+
+      $token = JWT::encode($payload, Config::$jwtauth_settings["secret"], "HS256");
+
+      return $token;
+}
+
 
 ?>

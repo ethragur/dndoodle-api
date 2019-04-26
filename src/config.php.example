@@ -38,7 +38,7 @@ class Config
             "secure"        => false,
             "relaxed"       => ["localhost"],
             "secret"        => "",
-            "passthrough"   => ["/",  ]
+            "passthrough"   => ["/login", "/version", "/register" ]
 #            "path"          => "/",
         ];
 }

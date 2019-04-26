@@ -23,6 +23,9 @@ $app->group('/register', function () use ($app)
             throw new LoginException("Could not retrieve Login Parameters");
          }
 
+
+         createUserNormal($cred["username"], $cred["password"], $this->db);
+
       } 
       catch (Exception $e) 
       {
@@ -32,8 +35,7 @@ $app->group('/register', function () use ($app)
       }
 
       return $response
-         ->withStatus(200)
-         ->withJson($cred);
+         ->withStatus(200);
    });
 
    $app->post('/gauth', function (Request $request, Response $response)
@@ -55,8 +57,11 @@ $app->group('/register', function () use ($app)
          
          if ($payload) 
          {
-            $userid = $payload['sub'];
-         } else {
+            createUserNormal($cred["username"], $cred["password"], $this->db);
+         } 
+         else 
+         {
+            throw new TokenInvalidException("Couldn't parse gauth token");
          }
       } 
       catch (Exception $e) 
@@ -67,7 +72,6 @@ $app->group('/register', function () use ($app)
       }
 
       return $response
-         ->withJson($payload)
          ->withStatus(200);
    });
 });

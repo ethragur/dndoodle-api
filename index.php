@@ -3,6 +3,7 @@ require 'vendor/autoload.php';
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \Firebase\JWT\JWT;
 
 /* ***********************************************
  * Include all functionality into the main program
@@ -24,13 +25,27 @@ $container = $app->getContainer();
 /* ***********************************************
  * Database Connection
  * ***********************************************/
-$container['db'] = function ($c) {
+$container['db'] = function ($c) 
+{
    $pdo = new PDO("mysql:host=" . Config::$mysql_host . ";dbname=" . Config::$mysql_db .";charset=UTF8", Config::$mysql_user, Config::$mysql_pwd);
    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
    return $pdo;
 
 };
+
+/* ***********************************************
+ * Create MonoLogger Settings
+ * ***********************************************/
+$container['logger'] = function ($c)
+{
+   return new \Projek\Slim\Monolog('dndoodle-api', Config::$logger_settings);
+};
+
+/* ***********************************************
+ * JWT SETTINGS
+ * ***********************************************/
+$app->add(new \Tuupola\Middleware\JwtAuthentication(Config::$jwtauth_settings));
 
 
 /* ***********************************************

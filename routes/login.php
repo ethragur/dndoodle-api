@@ -23,6 +23,8 @@ $app->group('/login', function () use ($app)
             throw new LoginException("Could not retrieve Login Parameters");
          }
 
+         $user  = checkAuthNormal($cred["username"], $cred["password"], $this->db);                  
+         $token = createJWT($user);
       } 
       catch (Exception $e) 
       {
@@ -32,8 +34,11 @@ $app->group('/login', function () use ($app)
       }
 
       return $response
-         ->withStatus(200)
-         ->withJson($cred);
+            ->withStatus(200)
+            ->withJson([ "username" => $user["user_name"], 
+                         "expiration" => new DateTime("now +1 week"), 
+                         "token" => $token]);
+
    });
 
    $app->post('/gauth', function (Request $request, Response $response)
@@ -55,8 +60,12 @@ $app->group('/login', function () use ($app)
          
          if ($payload) 
          {
-            $userid = $payload['sub'];
-         } else {
+            $user  = checkAuthNormal($cred["username"], $payload["sub"], $this->db);                  
+            $token = createJWT($user);
+         } 
+         else 
+         {
+            throw new TokenInvalidException("Couldn't parse gauth token");
          }
       } 
       catch (Exception $e) 
@@ -67,8 +76,10 @@ $app->group('/login', function () use ($app)
       }
 
       return $response
-         ->withJson($payload)
-         ->withStatus(200);
+            ->withStatus(200)
+            ->withJson([ "username" => $user["user_name"], 
+                         "expiration" => new DateTime("now +1 week"), 
+                         "token" => $token]);
    });
 });
 
