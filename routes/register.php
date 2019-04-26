@@ -4,11 +4,6 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 
-// TODO: Put exception in source
-class DecodeException extends Exception { }
-class LoginException extends Exception { }
-class TokenInvalidException extends Exception { }
-
 /* ***********************************************
  * User API Group
  * ***********************************************/
